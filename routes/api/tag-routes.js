@@ -32,6 +32,11 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', (req, res) => {
   // create a new tag
+  // req.body should look like :
+  {
+    
+
+  }
 });
 
 router.put('/:id', (req, res) => {
