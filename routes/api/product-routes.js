@@ -5,9 +5,9 @@ const { restore } = require('../../models/Product');
 // The `/api/products` endpoint
 
 // get all products
+// find all products
+// be sure to include its associated Category and Tag data
 router.get('/', async (req, res) => {
-  // find all products
-  // be sure to include its associated Category and Tag data
   try {
     const results = await Product.findAll({ include: [Category, Tag] });
     res.status(200).json(results);
@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
   try {
     const results = await Product.findByPk(req.params.id, { include: [Category, Tag] })
     if (!results) {
-      res.status(404).json({ message: 'No product found with this id!' });
+      res.status(404).send('No product found with this id!');
       return;
     }
     res.status(200).json(results);
