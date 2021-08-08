@@ -18,7 +18,7 @@ router.get('/:id', async (req, res) => {
   try {
     const results = await Category.findByPk(req.params.id, { include: Product });
     if (!results) {
-      res.status(404).send('No category found with this id');
+      res.status(404).json('No category found with this id');
       return;
     }
     res.status(200).json(results);
@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const results = await Category.update(req.body, { where: { id: req.params.id } });
-    res.status(200).send('Category updated');
+    res.status(200).json("Category name changed");
   } catch (err) {
     res.status(500).json(err);
   };
@@ -52,7 +52,7 @@ router.delete('/:id',async (req, res) => {
   try {
     const results = await Category.destroy({where: {id: req.params.id}});
     if(!results) {
-      res.status(404).send("No category found with this id");
+      res.status(404).json("No category found with this id");
       return;
     };
     res.status(200).json('Category Deleted');
