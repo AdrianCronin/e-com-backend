@@ -5,8 +5,6 @@ const { restore } = require('../../models/Product');
 // The `/api/products` endpoint
 
 // get all products
-// find all products
-// be sure to include its associated Category and Tag data
 router.get('/', async (req, res) => {
   try {
     const results = await Product.findAll({ include: [Category, Tag] });
@@ -17,9 +15,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// get one product
+// find a single product by its `id`
 router.get('/:id', async (req, res) => {
-  // find a single product by its `id`
   try {
     const results = await Product.findByPk(req.params.id, { include: [Category, Tag] })
     if (!results) {
@@ -31,7 +28,6 @@ router.get('/:id', async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-  // be sure to include its associated Category and Tag data
 });
 
 // create new product
@@ -108,18 +104,15 @@ router.put('/:id', (req, res) => {
     });
 });
 
+// delete one product by its `id` value
 router.delete('/:id', async (req, res) => {
-  // delete one product by its `id` value
   try {
     const results = await Product.destroy({ where: { id: req.params.id } });
-
     if (!results) {
       res.status(404).json({ message: 'No product found with this id!' });
       return;
     }
-
     res.status(200).send(`Product deleted`);
-
   } catch (err) {
     res.status(500).json(err);
   }
