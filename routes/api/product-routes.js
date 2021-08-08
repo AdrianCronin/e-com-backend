@@ -20,7 +20,7 @@ router.get('/:id', async (req, res) => {
   try {
     const results = await Product.findByPk(req.params.id, { include: [Category, Tag] })
     if (!results) {
-      res.status(404).send('No product found with this id!');
+      res.status(404).json('No product found with this id!');
       return;
     }
     res.status(200).json(results);
@@ -109,10 +109,10 @@ router.delete('/:id', async (req, res) => {
   try {
     const results = await Product.destroy({ where: { id: req.params.id } });
     if (!results) {
-      res.status(404).json({ message: 'No product found with this id!' });
+      res.status(404).json('No product found with this id!');
       return;
     }
-    res.status(200).send(`Product deleted`);
+    res.status(200).json(`Product deleted`);
   } catch (err) {
     res.status(500).json(err);
   }
